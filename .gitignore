@@ -1,0 +1,110 @@
+# ==========================================================
+# GIT IGNORE — Keep sensitive & system files out of Git
+# Python project with optional frontend support
+# ==========================================================
+
+
+# Secrets & Credentials (Never commit these)
+.env
+*.env
+!.env.example
+secrets.*
+*.pem
+*.key
+*secret*
+*SECRET*
+*api_key*
+*API_KEY*
+
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Packaging / build files
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+
+# Database Files
+*.sqlite*
+*.db
+db_dumps/
+postgres_data/
+
+
+# Logs & Cache
+*.log
+logs/
+.cache/
+.pytest_cache/
+coverage.*
+
+
+# IDE / Editor Settings
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Generic editor files
+*~
+*.swp
+*.swo
+
+
+# OS Generated Files
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+
+# Node / Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+package-lock.json
+yarn.lock
+
+
+# Deployment
+.dockerignore
+docker-compose.override.yml
+.terraform/
+
+
+# Testing Outputs
+test_data/
+test_output.*
+sample_transcripts/
+
+
+# Media & Large Assets
+screenshots/
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+
+# ==========================================================
+# Explicitly include important project files
+# ==========================================================
+!.gitignore
+!README.md
+!requirements.txt
+!main.py

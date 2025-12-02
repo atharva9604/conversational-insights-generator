@@ -1,0 +1,10 @@
+# Standard library modules (no installation needed)
+# os, json, uuid, typing, datetime, contextlib
+
+# Third-party dependencies
+pydantic>=2.0.0
+fastapi>=0.100.0
+asyncpg>=0.28.0
+google-generativeai>=0.3.0
+python-dotenv>=1.0.0
+
