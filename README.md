@@ -54,7 +54,7 @@ Optimized for **debt collection scenarios** with support for:
 
 ---
 
-### 1️⃣ Clone the Repository
+1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/atharva9604/conversational-insights-generator.git
@@ -101,6 +101,7 @@ DATABASE_URL=postgresql://postgres:password@localhost:5432/insights_db
 bash
 Copy code
 uvicorn main:app --reload
+
 🌐 API Access
 Once the server is running:
 
@@ -133,6 +134,7 @@ Copy code
   "processed_at": "2025-12-01T10:30:45.123456",
   "processing_time_ms": 1247.52
 }
+
 📊 API Endpoints
 POST /analyze_call
 Analyze a call transcript and extract structured insights.
@@ -193,6 +195,7 @@ CREATE INDEX idx_call_records_action_required
 
 CREATE INDEX idx_call_records_created_at
     ON call_records (created_at DESC);
+
 🧪 Testing
 Health Check
 bash
@@ -248,6 +251,7 @@ conversational-insights-generator/
 ├── .gitignore       # Git ignore rules
 ├── README.md        # Project documentation
 └── venv/            # Virtual environment (not committed)
+
 🔒 Security
 ✅ API keys stored in .env (never committed)
 
@@ -289,6 +293,7 @@ Update .env with the correct key.
 bash
 Copy code
 psql -U postgres -c "CREATE DATABASE insights_db;"
+
 📈 Performance
 ⏱ Average processing time: 1–3 seconds per transcript
 
