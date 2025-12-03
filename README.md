@@ -1,39 +1,8 @@
-````markdown
-### Conversational Insights Generator  
+### ✨ Conversational Insights Generator
+
 FastAPI + Gemini + PostgreSQL (Single-File Submission)
 
-This project is a complete end-to-end pipeline that analyzes **debt-collection call transcripts** using Google’s Gemini API and stores **structured insights** in PostgreSQL.
-
----
-
-### 🚀 What the API Does
-
-- Accepts a raw **Hinglish customer service call transcript**
-- Sends it to **Gemini 2.0 Flash** using a strict JSON schema
-- Extracts:
-  - `customer_intent`
-  - `sentiment` (`"Negative" | "Neutral" | "Positive"`)
-  - `action_required` (boolean)
-  - `summary`
-- Validates everything via **Pydantic**
-- Stores insights in PostgreSQL table **`call_records`**
-- Returns a JSON response:
-
-```json
-{
-  "id": 1,
-  "unique_id": "uuid",
-  "customer_intent": "...",
-  "sentiment": "Positive",
-  "action_required": false,
-  "summary": "...",
-  "raw_transcript": "...",
-  "processed_at": "2025-12-01T10:30:45.123456",
-  "processing_time_ms": 1234.56
-}
-````
-
-All main logic is inside **`main.py`**.
+A complete end-to-end pipeline that analyzes **Hinglish debt-collection call transcripts** using Google Gemini and stores **structured insights** in PostgreSQL — including customer intent, sentiment, follow-up action requirement, and a concise summary.
 
 ---
 
@@ -167,7 +136,7 @@ This is the same data used if you later export to a CSV like:
 ├── main.py             # Main FastAPI + Gemini + DB code
 ├── README.md           # This file
 ├── requirements.txt    # Python dependencies
-├── Predixion AI Assignment Report.pdf  # Final report (optional)
+├── Predixion AI Assignment Report.pdf  # Final report
 └── .venv / __pycache__ etc.           # Local environment / cache
 ```
 
@@ -179,16 +148,13 @@ YouTube link (demo of API + DB pipeline):
 
 > ▶️ [https://youtu.be/](https://youtu.be/)<your-video-id>
 
-*(Replace with your actual link once uploaded.)*
-
 ---
 
 ## 📘 Final Project Report
 
-* Detailed explanation of design, prompts, DB schema, and sample outputs is included in:
+* Detailed explanation is included in:
   **`Predixion AI Assignment Report.pdf`**
 
 ```
 
-If you want, I can also give you a **tiny version** (like 10–12 lines) for classroom portals that limit README size.
 ```
