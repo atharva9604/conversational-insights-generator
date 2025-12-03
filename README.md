@@ -145,7 +145,7 @@ This is the same data used if you later export to a CSV like:
 
 YouTube link (demo of API + DB pipeline):
 
-> ▶️ [https://youtu.be/](https://youtu.be/)<your-video-id>
+> ▶️ [https://youtu.be/](https://youtu.be/)ZTDk0OlOSBM
 
 ---
 
