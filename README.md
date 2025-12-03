@@ -136,7 +136,6 @@ This is the same data used if you later export to a CSV like:
 ├── main.py             # Main FastAPI + Gemini + DB code
 ├── README.md           # This file
 ├── requirements.txt    # Python dependencies
-├── Predixion AI Assignment Report.pdf  # Final report
 └── .venv / __pycache__ etc.           # Local environment / cache
 ```
 
