@@ -55,8 +55,6 @@ Optimized for **debt collection scenarios** with support for:
 ---
 
 1️⃣ Clone the Repository
-
-```bash
 git clone https://github.com/atharva9604/conversational-insights-generator.git
 cd conversational-insights-generator
 2️⃣ Create Virtual Environment
@@ -64,12 +62,10 @@ bash
 Copy code
 python -m venv venv
 Activate it:
-
 bash
 Copy code
 # Mac / Linux
 source venv/bin/activate
-
 # Windows
 venv\Scripts\activate
 3️⃣ Install Dependencies
@@ -82,17 +78,14 @@ Copy code
 psql -U postgres -c "CREATE DATABASE insights_db;"
 5️⃣ Configure Environment Variables
 Copy the example env file:
-
 bash
 Copy code
 cp .env.example .env
 Edit .env:
-
 bash
 Copy code
 nano .env
 Add your credentials:
-
 env
 Copy code
 GEMINI_API_KEY=your_gemini_api_key_here
@@ -103,12 +96,10 @@ Copy code
 uvicorn main:app --reload
 
 🌐 API Access
+
 Once the server is running:
-
 API Docs (Swagger UI): http://localhost:8000/docs
-
 Health Check: http://localhost:8000/health
-
 Root Info: http://localhost:8000/
 
 🚀 Usage
@@ -165,12 +156,13 @@ Copy code
   "llm_client": "initialized",
   "timestamp": "2025-12-01T10:30:45.123456"
 }
+
 Other Endpoints
 GET / – Basic API information
-
 GET /docs – Interactive API documentation (Swagger UI)
 
 🗄 Database Schema
+
 sql
 Copy code
 CREATE TABLE call_records (
@@ -196,54 +188,8 @@ CREATE INDEX idx_call_records_action_required
 CREATE INDEX idx_call_records_created_at
     ON call_records (created_at DESC);
 
-🧪 Testing
-Health Check
-bash
-Copy code
-curl http://localhost:8000/health
-Sample Transcripts
-Positive Sentiment
-
-bash
-Copy code
-curl -X POST "http://localhost:8000/analyze_call" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "transcript": "Agent: Payment reminder. Customer: Yes, will pay on time!"
-  }'
-Neutral (PTP)
-
-bash
-Copy code
-curl -X POST "http://localhost:8000/analyze_call" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "transcript": "Agent: Payment overdue. Customer: Emergency tha, Wednesday ko pakka karunga."
-  }'
-Negative (Hardship)
-
-bash
-Copy code
-curl -X POST "http://localhost:8000/analyze_call" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "transcript": "Agent: 75 days overdue. Customer: Financial hardship hai, restructuring chahiye."
-  }'
-Verify Database Records
-sql
-Copy code
--- View records
-SELECT id, sentiment, action_required, created_at
-FROM call_records
-ORDER BY created_at DESC;
-
--- Sentiment distribution
-SELECT sentiment, COUNT(*)
-FROM call_records
-GROUP BY sentiment;
 🏗 Project Structure
-text
-Copy code
+
 conversational-insights-generator/
 ├── main.py          # Main application file
 ├── requirements.txt # Python dependencies
@@ -252,53 +198,9 @@ conversational-insights-generator/
 ├── README.md        # Project documentation
 └── venv/            # Virtual environment (not committed)
 
-🔒 Security
-✅ API keys stored in .env (never committed)
-
-✅ Environment variables loaded via python-dotenv
-
-✅ Database credentials not hard-coded
-
-✅ SQL injection prevention via parameterized queries
-
-✅ Input validation at multiple layers
-
-✅ CORS can be configured for production
-
-⚠️ Important: Never commit .env file or expose API keys.
-
-🐛 Troubleshooting
-1. "Module not found"
-
-bash
-Copy code
-pip install -r requirements.txt
-2. "Connection refused" to PostgreSQL
-
-bash
-Copy code
-# Linux
-sudo service postgresql start
-
-# macOS (Homebrew)
-brew services start postgresql
-3. "Invalid API key"
-
-Get a new key from: https://ai.google.dev/
-
-Update .env with the correct key.
-
-4. "Database does not exist"
-
-bash
-Copy code
-psql -U postgres -c "CREATE DATABASE insights_db;"
-
 📈 Performance
+
 ⏱ Average processing time: 1–3 seconds per transcript
-
 🔁 Retry Logic: 3 attempts for LLM failures
-
 🔗 Database connections via connection pooling (e.g. 5–20 connections)
-
 🌐 Supports concurrent requests via async I/O
