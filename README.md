@@ -1,14 +1,12 @@
-Here’s a simple `README.md` in the same style as your example, tailored to **your code + structure**:
-
 ````markdown
-# Conversational Insights Generator  
+### Conversational Insights Generator  
 FastAPI + Gemini + PostgreSQL (Single-File Submission)
 
 This project is a complete end-to-end pipeline that analyzes **debt-collection call transcripts** using Google’s Gemini API and stores **structured insights** in PostgreSQL.
 
 ---
 
-## 🚀 What the API Does
+### 🚀 What the API Does
 
 - Accepts a raw **Hinglish customer service call transcript**
 - Sends it to **Gemini 2.0 Flash** using a strict JSON schema
