@@ -149,10 +149,4 @@ YouTube link (demo of API + DB pipeline):
 
 ---
 
-## 📘 Final Project Report
-
-* Detailed explanation is included in:
-  **`Predixion AI Assignment Report.pdf`**
-
----
 
