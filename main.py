@@ -386,20 +386,47 @@ async def analyze_call(request: CallRequest):
 
 
 # =============================================================================
-# TESTING WITH SAMPLE TRANSCRIPTS
+# TESTING WITH SAMPLE TRANSCRIPTS + DATA VERIFICATION
 # =============================================================================
 
-# Transcript #1 (Pre-Due, Positive)
-# curl -X POST "http://localhost:8000/analyze_call" \\
-#   -H "Content-Type: application/json" \\
-#   -d '{"transcript": "Agent: Hello, main Maya bol rahi hoon, Apex Finance se. Kya main Mr. Sharma se baat kar sakti hoon? Customer: Haan, main bol raha hoon. Kya hua? Agent: Sir, aapka personal loan ka EMI due date 3rd of next month hai. Just calling for a friendly reminder. Aapka payment ready hai na? Customer: Oh, okay. Haan, salary aa jayegi tab tak. I will definitely pay it on time, don't worry. Agent: Thank you, sir. Payment time pe ho jaye toh aapka credit score bhi maintain rahega. Have a good day!"}'
+# SAMPLE cURL REQUESTS (Run one at a time)
+#
+# curl -X POST "http://localhost:8000/analyze_call" \
+#   -H "Content-Type: application/json" \
+#   -d '{"transcript": "Agent: Hello, main Maya bol rahi hoon, Apex Finance se. Kya main Mr. Sharma se baat kar sakti hoon? Customer: Haan, main bol raha hoon. Kya hua? Agent: Sir, aapka personal loan ka EMI due date 3rd of next month hai. Just calling for a friendly reminder. Aapka payment ready hai na? Customer: Oh, okay. Haan, salary aa jayegi tab tak. I will definitely pay it on time, don't worry."}'
 
-# Transcript #3 (Post-Due, PTP)
-# curl -X POST "http://localhost:8000/analyze_call" \\
-#   -H "Content-Type: application/json" \\
-#   -d '{"transcript": "Agent: Hello Mr. Verma, main Aman bol raha hoon. Aapka personal loan EMI 7 days se overdue hai. Aapne payment kyun nahi kiya? Customer: Dekhiye, thoda emergency aa gaya tha. Mera bonus expected hai next week. Agent: Sir, aapko pata hai ki is par penalty lag rahi hai. Aap exact date bataiye, kab tak confirm payment ho jayega? Customer: Wednesday ko pakka kar dunga. Promise to Pay (PTP) le lo Wednesday ka. Agent: Okay, main aapka PTP book kar raha hoon next Wednesday ke liye. Please ensure payment is done to stop further charges."}'
+# curl -X POST "http://localhost:8000/analyze_call" \
+#   -H "Content-Type: application/json" \
+#   -d '{"transcript": "Agent: Hello Mr. Verma, aapka EMI 7 days se overdue hai. Customer: Emergency aagayi thi. Bonus next week. Agent: Kab tak payment? Customer: Wednesday ko pakka. Agent: Main Wednesday ka PTP book kar raha hoon."}'
 
-# Transcript #10 (Hardship)
-# curl -X POST "http://localhost:8000/analyze_call" \\
-#   -H "Content-Type: application/json" \\
-#   -d '{"transcript": "Agent: Ms. Pooja, hum aapko 75 days se call kar rahe hain. Aap cooperate nahi kar rahe. Customer: Meri mother hospital mein hain. Serious financial hardship hai. I am requesting a restructuring of the loan. Agent: Ma'am, we understand the situation. Lekin restructuring ke liye aapko hardship application fill karni hogi aur last 3 months ka bank statement dena hoga. Customer: Okay, send me the form."}'
+# curl -X POST "http://localhost:8000/analyze_call" \
+#   -H "Content-Type: application/json" \
+#   -d '{"transcript": "Agent: We’ve tried contacting you many times. Customer: Mother is in hospital, hardship request. Agent: You must fill hardship form and submit bank statements. Customer: Okay, send me the form."}'
+
+# -----------------------------------------------------------------------------
+# VERIFY DATA PERSISTENCE IN POSTGRESQL
+# -----------------------------------------------------------------------------
+#
+# Run this in psql:
+#
+# SELECT id, unique_id, intent, sentiment, action_required, summary, created_at
+# FROM call_records
+# ORDER BY id ASC
+# LIMIT 3;
+#
+# Example output for FIRST 3 entries:
+#
+#  id |               unique_id               |               intent                    | sentiment | action_required |                         summary                         |         created_at
+# ----+--------------------------------------+-----------------------------------------+-----------+-----------------+---------------------------------------------------------+------------------------------
+#   1 | 8c5e7f32-9e94-4bb8-bfce-ad9e90d5fc01 | On-time EMI payment expected            | Positive  | f               | Customer confirmed timely payment for upcoming EMI.     | 2025-12-03 07:45:10.423+00
+#   2 | 122f6a51-18d4-4d88-a02b-0d7c4cdf05aa | Promise to Pay (PTP) - Wednesday        | Neutral   | t               | EMI overdue; customer committed payment on Wednesday.   | 2025-12-03 07:48:19.110+00
+#   3 | d45cb81e-27c3-4a24-baa2-54a6e03cf78a | Request Loan Restructuring (Hardship)   | Negative  | t               | Customer requested restructuring due to medical issues. | 2025-12-03 07:51:02.987+00
+#
+# -----------------------------------------------------------------------------
+# EXPECTED RESULT
+# You should see 3 records inserted with:
+# ✔ Valid unique UUIDs
+# ✔ Properly classified sentiments
+# ✔ Action_required set correctly
+# ✔ Accurate timestamps
+# =============================================================================
